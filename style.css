@@ -1,0 +1,479 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --bg-dark: #050014;
+    --purple-main: #8b5cff;
+    --purple-deep: #4b1d80;
+    --purple-soft: #b89cff;
+    --pink-accent: #d946ef;
+    --card-bg: rgba(15, 8, 35, 0.85);
+    --text-main: #f7f3ff;
+    --text-muted: #a89cc4;
+    --border-color: rgba(139, 92, 255, 0.2);
+    --color-start: #31033b;
+    --color-end: #490357;
+}
+
+body {
+    min-height: 100vh;
+    font-family: 'Inter', system-ui, sans-serif;
+    color: var(--text-main);
+    background: radial-gradient(ellipse at top, #1a1036 0%, var(--bg-dark) 50%, #02000a 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* ==================== BACKGROUND ==================== */
+.bg-slideshow {
+    position: fixed;
+    inset: 0;
+    z-index: -3;
+}
+
+.bg-slide {
+    position: absolute;
+    inset: 0;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    filter: blur(10px) brightness(0.5);
+    transform: scale(1.05);
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out, transform 8s ease-out;
+}
+
+.bg-slide.active {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.color-overlay {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, var(--color-start), var(--color-end));
+    z-index: -2;
+    animation: color-shift 8s ease-in-out infinite;
+    opacity: 0.4;
+    mix-blend-mode: multiply;
+}
+
+@keyframes color-shift {
+    0%, 100% {
+        background: linear-gradient(135deg, #31033b, #490357);
+        opacity: 0.4;
+    }
+    50% {
+        background: linear-gradient(135deg, #490357, #31033b);
+        opacity: 0.5;
+    }
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background:
+        radial-gradient(circle at top left, rgba(139, 92, 255, 0.2), transparent 50%),
+        radial-gradient(circle at bottom right, rgba(217, 70, 239, 0.15), transparent 50%);
+    mix-blend-mode: screen;
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* ==================== MAIN CONTAINER ==================== */
+.auth-container {
+    width: 100%;
+    max-width: 420px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    position: relative;
+    z-index: 1;
+}
+
+/* ==================== BRAND / LOGO ==================== */
+.brand {
+    text-align: center;
+}
+
+.logo {
+    width: 80px;
+    height: auto;
+    filter: drop-shadow(0 0 20px rgba(139, 92, 255, 0.4));
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.logo:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 30px rgba(139, 92, 255, 0.6));
+}
+
+/* ==================== AUTH CARD ==================== */
+.auth-card {
+    width: 100%;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 28px 24px;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.4),
+        0 0 80px rgba(75, 29, 128, 0.08);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.auth-card:hover {
+    border-color: rgba(139, 92, 255, 0.3);
+    box-shadow:
+        0 25px 50px rgba(0, 0, 0, 0.5),
+        0 0 100px rgba(75, 29, 128, 0.12);
+}
+
+/* ==================== TABS ==================== */
+.tabs {
+    display: flex;
+    background: rgba(10, 5, 25, 0.6);
+    border-radius: 12px;
+    padding: 4px;
+    margin-bottom: 24px;
+    border: 1px solid rgba(139, 92, 255, 0.1);
+}
+
+.tab {
+    flex: 1;
+    padding: 12px 16px;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: all 0.25s ease;
+}
+
+.tab.active {
+    background: linear-gradient(135deg, rgba(139, 92, 255, 0.25), rgba(217, 70, 239, 0.2));
+    color: var(--text-main);
+    box-shadow: 0 2px 10px rgba(139, 92, 255, 0.2);
+}
+
+.tab:not(.active):hover {
+    color: var(--purple-soft);
+    background: rgba(139, 92, 255, 0.08);
+}
+
+/* ==================== FORMS ==================== */
+.forms {
+    position: relative;
+}
+
+.form {
+    display: none;
+}
+
+.form.active {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    animation: fade-in 0.3s ease;
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==================== INPUT GROUPS ==================== */
+.input-group {
+    position: relative;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 14px 16px;
+    padding-left: 48px;
+    background: rgba(10, 5, 25, 0.6);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    color: var(--text-main);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.input-group input::placeholder {
+    color: var(--text-muted);
+    opacity: 0.7;
+}
+
+.input-group input:hover {
+    border-color: rgba(139, 92, 255, 0.35);
+}
+
+.input-group input:focus {
+    border-color: rgba(139, 92, 255, 0.5);
+    background: rgba(15, 8, 35, 0.8);
+    box-shadow: 0 0 0 3px rgba(139, 92, 255, 0.1);
+}
+
+.input-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    color: var(--text-muted);
+    opacity: 0.6;
+    transition: all 0.2s ease;
+    pointer-events: none;
+}
+
+.input-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.input-group input:focus + .input-icon {
+    color: var(--purple-soft);
+    opacity: 1;
+}
+
+/* ==================== FORM OPTIONS ==================== */
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 4px;
+}
+
+.checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    transition: color 0.2s ease;
+}
+
+.checkbox:hover {
+    color: var(--purple-soft);
+}
+
+.checkbox input {
+    display: none;
+}
+
+.checkmark {
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--border-color);
+    border-radius: 5px;
+    position: relative;
+    transition: all 0.2s ease;
+    background: rgba(10, 5, 25, 0.6);
+}
+
+.checkbox:hover .checkmark {
+    border-color: rgba(139, 92, 255, 0.4);
+}
+
+.checkbox input:checked + .checkmark {
+    background: linear-gradient(135deg, var(--purple-main), var(--pink-accent));
+    border-color: transparent;
+}
+
+.checkbox input:checked + .checkmark::after {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: 2px;
+    width: 5px;
+    height: 9px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.link {
+    font-size: 0.8rem;
+    color: var(--purple-soft);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.link:hover {
+    color: var(--pink-accent);
+}
+
+/* ==================== PRIMARY BUTTON ==================== */
+@property --angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+}
+
+.primary-btn {
+    --btn-radius: 12px;
+    position: relative;
+    width: 100%;
+    border: 2px solid rgba(139, 92, 255, 0.3);
+    border-radius: var(--btn-radius);
+    padding: 14px 24px;
+    margin-top: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    color: var(--text-main);
+    background: linear-gradient(135deg, rgba(139, 92, 255, 0.15), rgba(217, 70, 239, 0.1));
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.3s ease;
+}
+
+/* Animierter "Schlangen"-Border beim Hover */
+.primary-btn::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: calc(var(--btn-radius) + 2px);
+    padding: 2px;
+    background: conic-gradient(
+        from var(--angle),
+        transparent 0deg,
+        transparent 300deg,
+        rgba(75, 29, 128, 0.8) 330deg,
+        rgba(139, 92, 255, 1) 345deg,
+        rgba(217, 70, 239, 1) 355deg,
+        rgba(184, 156, 255, 1) 360deg
+    );
+    -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.primary-btn:hover {
+    transform: translateY(-2px);
+    border-color: transparent;
+    background: linear-gradient(135deg, rgba(139, 92, 255, 0.25), rgba(217, 70, 239, 0.2));
+    box-shadow: 
+        0 8px 25px rgba(0, 0, 0, 0.3),
+        0 0 25px rgba(139, 92, 255, 0.15);
+}
+
+.primary-btn:hover::before {
+    opacity: 1;
+    animation: spin-gradient 3s linear infinite;
+}
+
+@keyframes spin-gradient {
+    0% { --angle: 0deg; }
+    100% { --angle: 360deg; }
+}
+
+.primary-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.primary-btn:focus-visible {
+    outline: none;
+    border-color: transparent;
+}
+
+.primary-btn:focus-visible::before {
+    opacity: 1;
+    animation: spin-gradient 3s linear infinite;
+}
+
+/* ==================== FOOTER ==================== */
+.auth-footer {
+    text-align: center;
+}
+
+.auth-footer p {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    opacity: 0.6;
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 480px) {
+    .auth-container {
+        padding: 16px;
+        gap: 20px;
+    }
+    
+    .logo {
+        width: 70px;
+    }
+    
+    .auth-card {
+        padding: 24px 20px;
+        border-radius: 16px;
+    }
+    
+    .tab {
+        padding: 10px 12px;
+        font-size: 0.8rem;
+    }
+    
+    .input-group input {
+        padding: 12px 14px;
+        padding-left: 44px;
+    }
+    
+    .primary-btn {
+        padding: 14px 20px;
+    }
+}
+
+/* ==================== ANIMATIONS ==================== */
+.form.active .input-group:nth-child(1) { animation: slide-up 0.3s ease forwards 0.05s; opacity: 0; }
+.form.active .input-group:nth-child(2) { animation: slide-up 0.3s ease forwards 0.1s; opacity: 0; }
+.form.active .input-group:nth-child(3) { animation: slide-up 0.3s ease forwards 0.15s; opacity: 0; }
+.form.active .input-group:nth-child(4) { animation: slide-up 0.3s ease forwards 0.2s; opacity: 0; }
+.form.active .form-options { animation: slide-up 0.3s ease forwards 0.2s; opacity: 0; }
+.form.active .primary-btn { animation: slide-up 0.3s ease forwards 0.25s; opacity: 0; }
+
+@keyframes slide-up {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

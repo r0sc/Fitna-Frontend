@@ -20,45 +20,75 @@
     --color-end: #490357;
 }
 
+html {
+    height: 100%;
+    height: -webkit-fill-available;
+}
+
 body {
     min-height: 100vh;
+    min-height: 100dvh; /* Dynamic viewport height für mobile Browser */
+    min-height: -webkit-fill-available;
     font-family: 'Inter', system-ui, sans-serif;
     color: var(--text-main);
-    background: radial-gradient(ellipse at top, #1a1036 0%, var(--bg-dark) 50%, #02000a 100%);
+    background: var(--bg-dark);
     display: flex;
     align-items: center;
     justify-content: center;
     overflow-x: hidden;
+    overflow-y: auto;
     position: relative;
 }
 
 /* ==================== BACKGROUND ==================== */
 .bg-slideshow {
     position: fixed;
-    inset: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    height: 100vh;
+    height: 100dvh; /* Dynamic viewport height */
+    height: -webkit-fill-available;
     z-index: -3;
+    overflow: hidden;
 }
 
 .bg-slide {
     position: absolute;
-    inset: 0;
+    top: -5%;
+    left: -5%;
+    right: -5%;
+    bottom: -5%;
+    width: 110%;
+    height: 110%;
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
     filter: blur(10px) brightness(0.5);
-    transform: scale(1.05);
     opacity: 0;
     transition: opacity 1.5s ease-in-out, transform 8s ease-out;
+    transform: scale(1);
 }
 
 .bg-slide.active {
     opacity: 1;
-    transform: scale(1.1);
+    transform: scale(1.05);
 }
 
 .color-overlay {
     position: fixed;
-    inset: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    height: 100vh;
+    height: 100dvh;
+    height: -webkit-fill-available;
     background: linear-gradient(135deg, var(--color-start), var(--color-end));
     z-index: -2;
     animation: color-shift 8s ease-in-out infinite;
@@ -80,7 +110,15 @@ body {
 body::after {
     content: "";
     position: fixed;
-    inset: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    height: 100vh;
+    height: 100dvh;
+    height: -webkit-fill-available;
     background:
         radial-gradient(circle at top left, rgba(139, 92, 255, 0.2), transparent 50%),
         radial-gradient(circle at bottom right, rgba(217, 70, 239, 0.15), transparent 50%);
@@ -92,12 +130,12 @@ body::after {
 /* ==================== MAIN CONTAINER ==================== */
 .auth-container {
     width: 100%;
-    max-width: 420px;
+    max-width: 380px;
     padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 24px;
+    gap: 20px;
     position: relative;
     z-index: 1;
 }
@@ -108,7 +146,7 @@ body::after {
 }
 
 .logo {
-    width: 80px;
+    width: 65px;
     height: auto;
     filter: drop-shadow(0 0 20px rgba(139, 92, 255, 0.4));
     transition: transform 0.3s ease, filter 0.3s ease;
@@ -124,8 +162,8 @@ body::after {
     width: 100%;
     background: var(--card-bg);
     border: 1px solid var(--border-color);
-    border-radius: 20px;
-    padding: 28px 24px;
+    border-radius: 18px;
+    padding: 24px 22px;
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     box-shadow:
@@ -145,24 +183,24 @@ body::after {
 .tabs {
     display: flex;
     background: rgba(10, 5, 25, 0.6);
-    border-radius: 12px;
-    padding: 4px;
-    margin-bottom: 24px;
+    border-radius: 10px;
+    padding: 3px;
+    margin-bottom: 20px;
     border: 1px solid rgba(139, 92, 255, 0.1);
 }
 
 .tab {
     flex: 1;
-    padding: 12px 16px;
+    padding: 10px 14px;
     border: none;
     background: transparent;
     color: var(--text-muted);
     font-family: 'Inter', sans-serif;
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     font-weight: 500;
     letter-spacing: 0.02em;
     cursor: pointer;
-    border-radius: 10px;
+    border-radius: 8px;
     transition: all 0.25s ease;
 }
 
@@ -189,7 +227,7 @@ body::after {
 .form.active {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 14px;
     animation: fade-in 0.3s ease;
 }
 
@@ -211,14 +249,14 @@ body::after {
 
 .input-group input {
     width: 100%;
-    padding: 14px 16px;
-    padding-left: 48px;
+    padding: 12px 14px;
+    padding-left: 44px;
     background: rgba(10, 5, 25, 0.6);
     border: 1px solid var(--border-color);
-    border-radius: 12px;
+    border-radius: 10px;
     color: var(--text-main);
     font-family: 'Inter', sans-serif;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     outline: none;
     transition: all 0.2s ease;
 }
@@ -240,11 +278,11 @@ body::after {
 
 .input-icon {
     position: absolute;
-    left: 16px;
+    left: 14px;
     top: 50%;
     transform: translateY(-50%);
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     color: var(--text-muted);
     opacity: 0.6;
     transition: all 0.2s ease;
@@ -337,14 +375,14 @@ body::after {
 }
 
 .primary-btn {
-    --btn-radius: 12px;
+    --btn-radius: 10px;
     position: relative;
     width: 100%;
     border: 2px solid rgba(139, 92, 255, 0.3);
     border-radius: var(--btn-radius);
-    padding: 14px 24px;
-    margin-top: 8px;
-    font-size: 0.9rem;
+    padding: 12px 20px;
+    margin-top: 6px;
+    font-size: 0.85rem;
     font-weight: 600;
     font-family: 'Inter', sans-serif;
     letter-spacing: 0.03em;
@@ -429,6 +467,86 @@ body::after {
 }
 
 /* ==================== RESPONSIVE ==================== */
+
+/* Große Desktop-Bildschirme (1920x1080 und größer) */
+@media (min-width: 1920px) {
+    .auth-container {
+        max-width: 360px;
+        gap: 18px;
+    }
+    
+    .logo {
+        width: 60px;
+    }
+    
+    .auth-card {
+        padding: 22px 20px;
+        border-radius: 16px;
+    }
+    
+    .tabs {
+        margin-bottom: 18px;
+    }
+    
+    .tab {
+        padding: 9px 12px;
+        font-size: 0.8rem;
+    }
+    
+    .form.active {
+        gap: 12px;
+    }
+    
+    .input-group input {
+        padding: 11px 12px;
+        padding-left: 40px;
+        font-size: 0.82rem;
+        border-radius: 9px;
+    }
+    
+    .input-icon {
+        left: 12px;
+        width: 16px;
+        height: 16px;
+    }
+    
+    .primary-btn {
+        padding: 11px 18px;
+        font-size: 0.82rem;
+    }
+    
+    .auth-footer p {
+        font-size: 0.7rem;
+    }
+}
+
+/* Sehr große Bildschirme (2K, 4K) */
+@media (min-width: 2560px) {
+    .auth-container {
+        max-width: 340px;
+        gap: 16px;
+    }
+    
+    .logo {
+        width: 55px;
+    }
+    
+    .auth-card {
+        padding: 20px 18px;
+    }
+}
+
+/* Standard Desktop (1280px - 1919px) */
+@media (min-width: 1280px) and (max-width: 1919px) {
+    .auth-container {
+        max-width: 370px;
+        gap: 20px;
+    }
+    
+    .logo {
+        width: 62px;
+    }
+}
 
 /* Tablets und kleine Laptops */
 @media (max-width: 768px) {

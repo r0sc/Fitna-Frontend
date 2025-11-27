@@ -824,74 +824,58 @@ body::after {
 }
 
 /* ==================== INSTALL PROMPT (für nicht-standalone Browser) ==================== */
+/* Install Prompt verwendet auth-container und auth-card Styles */
 .install-prompt {
-    width: 100%;
-    max-width: 380px;
-    padding: 20px;
     display: none;
-    flex-direction: column;
-    align-items: center;
-    gap: 24px;
-    position: relative;
-    z-index: 1;
+}
+
+.install-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--text-main);
     text-align: center;
 }
 
-.install-prompt.active {
-    display: flex;
-}
-
-.install-card {
-    width: 100%;
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 18px;
-    padding: 30px 24px;
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    box-shadow:
-        0 20px 40px rgba(0, 0, 0, 0.4),
-        0 0 80px rgba(75, 29, 128, 0.08);
-}
-
-.install-card h2 {
-    font-size: 1.3rem;
-    font-weight: 600;
-    margin-bottom: 8px;
-    color: var(--text-main);
-}
-
-.install-card .subtitle {
-    font-size: 0.85rem;
+.install-subtitle {
+    font-size: 0.82rem;
     color: var(--text-muted);
-    margin-bottom: 28px;
+    margin-bottom: 20px;
+    text-align: center;
 }
 
 .install-steps {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    text-align: left;
+    gap: 16px;
 }
 
 .install-step {
     display: flex;
-    align-items: flex-start;
-    gap: 14px;
+    align-items: center;
+    gap: 12px;
+    animation: slide-up 0.3s ease forwards;
+    opacity: 0;
 }
 
+.install-step:nth-child(1) { animation-delay: 0.05s; }
+.install-step:nth-child(2) { animation-delay: 0.1s; }
+.install-step:nth-child(3) { animation-delay: 0.15s; }
+.install-step:nth-child(4) { animation-delay: 0.2s; }
+
 .step-number {
-    width: 28px;
-    height: 28px;
-    min-width: 28px;
+    width: 26px;
+    height: 26px;
+    min-width: 26px;
     background: linear-gradient(135deg, var(--purple-main), var(--pink-accent));
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     font-weight: 600;
     color: white;
+    box-shadow: 0 2px 8px rgba(139, 92, 255, 0.3);
 }
 
 .step-content {
@@ -899,9 +883,9 @@ body::after {
 }
 
 .step-content p {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: var(--text-main);
-    line-height: 1.5;
+    line-height: 1.4;
 }
 
 .step-content .highlight {
@@ -912,33 +896,36 @@ body::after {
 .step-content .icon-hint {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    gap: 5px;
     background: rgba(139, 92, 255, 0.15);
-    padding: 4px 10px;
-    border-radius: 6px;
-    margin-top: 6px;
-    font-size: 0.8rem;
+    padding: 3px 8px;
+    border-radius: 5px;
+    margin-left: 6px;
+    font-size: 0.75rem;
     color: var(--purple-soft);
 }
 
 .step-content .icon-hint svg {
-    width: 18px;
-    height: 18px;
+    width: 14px;
+    height: 14px;
 }
 
 .install-note {
-    margin-top: 24px;
-    padding: 14px;
+    margin-top: 18px;
+    padding: 12px;
     background: rgba(139, 92, 255, 0.1);
     border: 1px solid rgba(139, 92, 255, 0.2);
     border-radius: 10px;
-    font-size: 0.8rem;
+    font-size: 0.78rem;
     color: var(--text-muted);
-    line-height: 1.5;
+    line-height: 1.4;
+    text-align: center;
+    animation: slide-up 0.3s ease forwards 0.25s;
+    opacity: 0;
 }
 
-/* Hide auth-container when install prompt is shown */
-body.show-install-prompt .auth-container {
+/* Show/Hide Logic */
+body.show-install-prompt .login-container {
     display: none;
 }
 

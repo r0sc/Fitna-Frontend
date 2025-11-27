@@ -568,6 +568,44 @@ body::after {
         padding-bottom: 24px;
     }
     
+    /* Hintergrund über den ganzen Bildschirm */
+    .bg-slideshow {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100vw;
+        height: 100vh;
+        height: 100dvh;
+        height: 100svh; /* Small viewport height - ignoriert Browser-UI */
+        height: -webkit-fill-available;
+    }
+    
+    .bg-slide {
+        position: absolute;
+        top: -2%;
+        left: -2%;
+        right: -2%;
+        bottom: -2%;
+        width: 104%;
+        height: 104%;
+        background-size: cover;
+        background-position: center center;
+    }
+    
+    .color-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100vw;
+        height: 100vh;
+        height: 100dvh;
+        height: -webkit-fill-available;
+    }
+    
     .auth-container {
         padding: 16px;
         gap: 20px;
@@ -637,6 +675,25 @@ body::after {
     body {
         padding-top: 16px;
         padding-bottom: 16px;
+    }
+    
+    /* Hintergrund über den ganzen Bildschirm */
+    .bg-slideshow,
+    .color-overlay {
+        width: 100vw;
+        height: 100vh;
+        height: 100dvh;
+        height: 100svh;
+        height: -webkit-fill-available;
+    }
+    
+    .bg-slide {
+        top: -3%;
+        left: -3%;
+        right: -3%;
+        bottom: -3%;
+        width: 106%;
+        height: 106%;
     }
     
     .auth-container {

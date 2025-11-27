@@ -17,13 +17,29 @@ document.addEventListener("DOMContentLoaded", () => {
         return false;
     };
 
-    // Zeige Install-Prompt wenn nicht im Standalone-Modus
-    if (!isStandalone()) {
+    // Prüft ob es sich um ein mobiles Gerät handelt (Smartphone/Tablet)
+    const isMobileDevice = () => {
+        // Prüfe auf Touch-Fähigkeit + kleine Bildschirmbreite
+        const hasTouchScreen = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        const isSmallScreen = window.innerWidth <= 1024;
+        
+        // User-Agent Check als zusätzliche Absicherung
+        const mobileUserAgent = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        
+        return (hasTouchScreen && isSmallScreen) || mobileUserAgent;
+    };
+
+    // Zeige Install-Prompt NUR auf mobilen Geräten und wenn nicht im Standalone-Modus
+    if (isMobileDevice() && !isStandalone()) {
         document.body.classList.add('show-install-prompt');
-        console.log('📱 Browser-Modus erkannt - zeige Install-Anleitung');
+        console.log('📱 Mobiles Gerät im Browser-Modus erkannt - zeige Install-Anleitung');
     } else {
         document.body.classList.remove('show-install-prompt');
-        console.log('✅ Standalone/Webapp-Modus erkannt - zeige Login');
+        if (!isMobileDevice()) {
+            console.log('🖥️ Desktop erkannt - zeige direkt Login');
+        } else {
+            console.log('✅ Standalone/Webapp-Modus erkannt - zeige Login');
+        }
     }
 
     // ==================== HINTERGRUND-SLIDESHOW ====================

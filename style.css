@@ -563,10 +563,10 @@ body::after {
 
 /* Große Smartphones (bis 480px) */
 @media (max-width: 480px) {
-    body {
+    /**body {
         padding-top: 24px;
         padding-bottom: 24px;
-    }
+    }**/
     
     /* Hintergrund über den ganzen Bildschirm */
     .bg-slideshow {

@@ -3,6 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#050014">
+    <link rel="apple-touch-icon" href="img/logo.png">
     <title>Fitna – Login & Registrierung</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,6 +20,64 @@
         <div class="bg-slide bg-slide-2"></div>
     </div>
     <div class="color-overlay"></div>
+
+    <!-- Install Prompt für Browser (nicht-standalone) -->
+    <section class="install-prompt">
+        <header class="brand">
+            <img src="img/logo.png" alt="Fitna Logo" class="logo">
+        </header>
+        
+        <div class="install-card">
+            <h2>App installieren</h2>
+            <p class="subtitle">Füge Fitna zu deinem Homescreen hinzu für das beste Erlebnis</p>
+            
+            <div class="install-steps">
+                <div class="install-step">
+                    <span class="step-number">1</span>
+                    <div class="step-content">
+                        <p>Tippe unten auf das <span class="highlight">Teilen-Symbol</span></p>
+                        <span class="icon-hint">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/>
+                                <polyline points="16 6 12 2 8 6"/>
+                                <line x1="12" y1="2" x2="12" y2="15"/>
+                            </svg>
+                            Share / Teilen
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="install-step">
+                    <span class="step-number">2</span>
+                    <div class="step-content">
+                        <p>Scrolle und wähle <span class="highlight">"Zum Home-Bildschirm"</span></p>
+                    </div>
+                </div>
+                
+                <div class="install-step">
+                    <span class="step-number">3</span>
+                    <div class="step-content">
+                        <p>Tippe auf <span class="highlight">"Hinzufügen"</span> oben rechts</p>
+                    </div>
+                </div>
+                
+                <div class="install-step">
+                    <span class="step-number">4</span>
+                    <div class="step-content">
+                        <p>Öffne die <span class="highlight">Fitna App</span> vom Homescreen</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="install-note">
+                💡 Nach der Installation öffnet sich die App im Vollbildmodus ohne Browser-Leisten
+            </div>
+        </div>
+        
+        <footer class="auth-footer">
+            <p>© 2025 Bitschupfer</p>
+        </footer>
+    </section>
 
     <main class="auth-container">
         <!-- Logo Section -->

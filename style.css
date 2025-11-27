@@ -548,8 +548,8 @@ body::after {
 /* Tablets und kleine Laptops */
 @media (max-width: 768px) {
     body {
-        align-items: flex-start;
-        padding-top: 40px;
+        align-items: center;
+        justify-content: center;
         min-height: 100dvh; /* dynamic viewport height für mobile Browser */
     }
     
@@ -626,11 +626,6 @@ body::after {
 
 /* Kleine Smartphones (bis 375px - iPhone SE, etc.) */
 @media (max-width: 375px) {
-    body {
-        padding-top: 16px;
-        padding-bottom: 16px;
-    }
-    
     .auth-container {
         padding: 12px;
         gap: 16px;
@@ -826,6 +821,129 @@ body::after {
         padding-right: max(16px, env(safe-area-inset-right));
         padding-bottom: max(16px, env(safe-area-inset-bottom));
     }
+}
+
+/* ==================== INSTALL PROMPT (für nicht-standalone Browser) ==================== */
+.install-prompt {
+    width: 100%;
+    max-width: 380px;
+    padding: 20px;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    position: relative;
+    z-index: 1;
+    text-align: center;
+}
+
+.install-prompt.active {
+    display: flex;
+}
+
+.install-card {
+    width: 100%;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 18px;
+    padding: 30px 24px;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.4),
+        0 0 80px rgba(75, 29, 128, 0.08);
+}
+
+.install-card h2 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text-main);
+}
+
+.install-card .subtitle {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 28px;
+}
+
+.install-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    text-align: left;
+}
+
+.install-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+}
+
+.step-number {
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    background: linear-gradient(135deg, var(--purple-main), var(--pink-accent));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: white;
+}
+
+.step-content {
+    flex: 1;
+}
+
+.step-content p {
+    font-size: 0.9rem;
+    color: var(--text-main);
+    line-height: 1.5;
+}
+
+.step-content .highlight {
+    color: var(--purple-soft);
+    font-weight: 500;
+}
+
+.step-content .icon-hint {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(139, 92, 255, 0.15);
+    padding: 4px 10px;
+    border-radius: 6px;
+    margin-top: 6px;
+    font-size: 0.8rem;
+    color: var(--purple-soft);
+}
+
+.step-content .icon-hint svg {
+    width: 18px;
+    height: 18px;
+}
+
+.install-note {
+    margin-top: 24px;
+    padding: 14px;
+    background: rgba(139, 92, 255, 0.1);
+    border: 1px solid rgba(139, 92, 255, 0.2);
+    border-radius: 10px;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+/* Hide auth-container when install prompt is shown */
+body.show-install-prompt .auth-container {
+    display: none;
+}
+
+body.show-install-prompt .install-prompt {
+    display: flex;
 }
 
 /* ==================== ANIMATIONS ==================== */

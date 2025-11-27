@@ -1,5 +1,32 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // Hintergrund-Slideshow mit smoothem Crossfade
+    // ==================== STANDALONE/WEBAPP CHECK ====================
+    // Prüft ob die App als Webapp vom Homescreen geöffnet wurde
+    const isStandalone = () => {
+        // iOS Safari standalone mode
+        if (window.navigator.standalone === true) {
+            return true;
+        }
+        // Android / andere Browser (PWA mode)
+        if (window.matchMedia('(display-mode: standalone)').matches) {
+            return true;
+        }
+        // Fallback: Check URL parameter (für Debugging)
+        if (new URLSearchParams(window.location.search).get('standalone') === 'true') {
+            return true;
+        }
+        return false;
+    };
+
+    // Zeige Install-Prompt wenn nicht im Standalone-Modus
+    if (!isStandalone()) {
+        document.body.classList.add('show-install-prompt');
+        console.log('📱 Browser-Modus erkannt - zeige Install-Anleitung');
+    } else {
+        document.body.classList.remove('show-install-prompt');
+        console.log('✅ Standalone/Webapp-Modus erkannt - zeige Login');
+    }
+
+    // ==================== HINTERGRUND-SLIDESHOW ====================
     const slides = document.querySelectorAll(".bg-slide");
     
     const bgImages = [

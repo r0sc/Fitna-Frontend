@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // ==================== STANDALONE/WEBAPP CHECK ====================
+    // ==================== DEVICE & STANDALONE DETECTION ====================
+    
     // Prüft ob die App als Webapp vom Homescreen geöffnet wurde
     const isStandalone = () => {
         // iOS Safari standalone mode
@@ -17,13 +18,96 @@ document.addEventListener("DOMContentLoaded", () => {
         return false;
     };
 
-    // Zeige Install-Prompt wenn nicht im Standalone-Modus
-    if (!isStandalone()) {
-        document.body.classList.add('show-install-prompt');
-        console.log('📱 Browser-Modus erkannt - zeige Install-Anleitung');
-    } else {
-        document.body.classList.remove('show-install-prompt');
+    // Prüft ob es ein Mobilgerät ist
+    const isMobileDevice = () => {
+        const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+        // Check für mobile User Agents
+        const mobileRegex = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
+        // Auch Touch-Fähigkeit und Bildschirmgröße prüfen
+        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        const isSmallScreen = window.innerWidth <= 768;
+        
+        return mobileRegex.test(userAgent) || (isTouchDevice && isSmallScreen);
+    };
+
+    // Prüft ob iOS
+    const isIOS = () => {
+        const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+        return /iPhone|iPad|iPod/i.test(userAgent) || 
+               (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1); // iPad mit iPadOS
+    };
+
+    // Prüft ob der User den Prompt bereits abgelehnt hat (Session-basiert)
+    const hasSkippedInstall = () => {
+        return sessionStorage.getItem('fitna-install-skipped') === 'true';
+    };
+
+    // ==================== INSTALL PROMPT LOGIC ====================
+    const installOverlay = document.getElementById('install-overlay');
+    const installRecommendation = document.getElementById('install-recommendation');
+    const installIOS = document.getElementById('install-ios');
+    const installAndroid = document.getElementById('install-android');
+    const installSkipBtn = document.getElementById('install-skip');
+    const installConfirmBtn = document.getElementById('install-confirm');
+    const installBackIOS = document.getElementById('install-back-ios');
+    const installBackAndroid = document.getElementById('install-back-android');
+
+    // Zeige Install-Empfehlung nur auf Mobilgeräten, nicht im Standalone-Modus, und wenn nicht übersprungen
+    if (isMobileDevice() && !isStandalone() && !hasSkippedInstall()) {
+        installOverlay.classList.add('visible');
+        console.log('📱 Mobilgerät erkannt - zeige Install-Empfehlung');
+        console.log(isIOS() ? '🍎 iOS erkannt' : '🤖 Android erkannt');
+    } else if (isStandalone()) {
         console.log('✅ Standalone/Webapp-Modus erkannt - zeige Login');
+    } else if (!isMobileDevice()) {
+        console.log('🖥️ Desktop erkannt - keine Install-Empfehlung');
+    }
+
+    // Skip Button - schließt das Overlay und merkt sich die Entscheidung
+    if (installSkipBtn) {
+        installSkipBtn.addEventListener('click', () => {
+            installOverlay.classList.remove('visible');
+            sessionStorage.setItem('fitna-install-skipped', 'true');
+            console.log('⏭️ Install übersprungen');
+        });
+    }
+
+    // Confirm Button - zeigt das passende Tutorial
+    if (installConfirmBtn) {
+        installConfirmBtn.addEventListener('click', () => {
+            installRecommendation.classList.remove('active');
+            
+            if (isIOS()) {
+                installIOS.classList.add('active');
+                console.log('📖 Zeige iOS Tutorial');
+            } else {
+                installAndroid.classList.add('active');
+                console.log('📖 Zeige Android Tutorial');
+            }
+        });
+    }
+
+    // Back Buttons - schließen das Overlay
+    if (installBackIOS) {
+        installBackIOS.addEventListener('click', () => {
+            installOverlay.classList.remove('visible');
+            // Reset für nächsten Besuch
+            setTimeout(() => {
+                installIOS.classList.remove('active');
+                installRecommendation.classList.add('active');
+            }, 300);
+        });
+    }
+
+    if (installBackAndroid) {
+        installBackAndroid.addEventListener('click', () => {
+            installOverlay.classList.remove('visible');
+            // Reset für nächsten Besuch
+            setTimeout(() => {
+                installAndroid.classList.remove('active');
+                installRecommendation.classList.add('active');
+            }, 300);
+        });
     }
 
     // ==================== HINTERGRUND-SLIDESHOW ====================
@@ -78,6 +162,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const forms = {
         login: document.getElementById("login-form"),
         register: document.getElementById("register-form"),
+        htl: document.getElementById("htl-form"),
     };
 
     tabs.forEach((tab) => {

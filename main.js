@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return false;
     };
 
+<<<<<<< HEAD
     // Prüft ob es ein Mobilgerät ist
     const isMobileDevice = () => {
         const userAgent = navigator.userAgent || navigator.vendor || window.opera;
@@ -108,6 +109,31 @@ document.addEventListener("DOMContentLoaded", () => {
                 installRecommendation.classList.add('active');
             }, 300);
         });
+=======
+    // Prüft ob es sich um ein mobiles Gerät handelt (Smartphone/Tablet)
+    const isMobileDevice = () => {
+        // Prüfe auf Touch-Fähigkeit + kleine Bildschirmbreite
+        const hasTouchScreen = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        const isSmallScreen = window.innerWidth <= 1024;
+        
+        // User-Agent Check als zusätzliche Absicherung
+        const mobileUserAgent = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        
+        return (hasTouchScreen && isSmallScreen) || mobileUserAgent;
+    };
+
+    // Zeige Install-Prompt NUR auf mobilen Geräten und wenn nicht im Standalone-Modus
+    if (isMobileDevice() && !isStandalone()) {
+        document.body.classList.add('show-install-prompt');
+        console.log('📱 Mobiles Gerät im Browser-Modus erkannt - zeige Install-Anleitung');
+    } else {
+        document.body.classList.remove('show-install-prompt');
+        if (!isMobileDevice()) {
+            console.log('🖥️ Desktop erkannt - zeige direkt Login');
+        } else {
+            console.log('✅ Standalone/Webapp-Modus erkannt - zeige Login');
+        }
+>>>>>>> 87a5b3b88205dad15f8920c176ee008d25711458
     }
 
     // ==================== HINTERGRUND-SLIDESHOW ====================

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#050014">
+    <link rel="apple-touch-icon" href="img/logo.png">
+    <title>Fitna – Overview</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="overview.css">
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+</head>
+<body class="overview-page">
+    <div class="bg-slideshow">
+        <div class="bg-slide bg-slide-1 active"></div>
+        <div class="bg-slide bg-slide-2"></div>
+    </div>
+    <div class="color-overlay"></div>
+
+    <div class="overview-wrapper">
+        <div class="overview-container glass-container">
+            <!-- Header -->
+            <header class="overview-header">
+                <div class="header-left">
+                    <div class="logo-section">
+                        <img src="img/logo.png" alt="Fitna Logo" class="logo-small">
+                        <h1 class="app-title">Fitna</h1>
+                    </div>
+                    <div class="streak-badge">
+                    <svg class="streak-icon fire-icon" viewBox="0 0 24 24" fill="none">
+                        <path class="fire-flame" d="M12 2c1 2.5 2.5 4 4 6.5 1.5 2.5 2 4.5 2 6.5 0 3.314-2.686 6-6 6s-6-2.686-6-6c0-2 .5-4 2-6.5C9.5 6 11 4.5 12 2z" fill="url(#fireGradient)"/>
+                        <path class="fire-inner" d="M12 7c.5 1.5 1.5 2.5 2.5 4 1 1.5 1.5 2.5 1.5 4 0 2.209-1.791 4-4 4s-4-1.791-4-4c0-1.5.5-2.5 1.5-4C10.5 9.5 11.5 8.5 12 7z" fill="url(#fireInnerGradient)"/>
+                        <defs>
+                            <linearGradient id="fireGradient" x1="12" y1="2" x2="12" y2="21">
+                                <stop offset="0%" stop-color="#FFD700"/>
+                                <stop offset="50%" stop-color="#FF8C00"/>
+                                <stop offset="100%" stop-color="#FF4500"/>
+                            </linearGradient>
+                            <linearGradient id="fireInnerGradient" x1="12" y1="7" x2="12" y2="19">
+                                <stop offset="0%" stop-color="#FFF4E6"/>
+                                <stop offset="100%" stop-color="#FFD700"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <span class="streak-text" id="streak-text">Lade...</span>
+                </div>
+            </div>
+            <nav class="header-nav">
+                <a href="/plan" class="nav-link" title="Mein Plan">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                        <path d="M9 12h6m-6 4h6"/>
+                    </svg>
+                </a>
+                <a href="/videos" class="nav-link" title="Videos">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="5 3 19 12 5 21 5 3"/>
+                    </svg>
+                </a>
+                <button class="nav-link" id="profile-btn" title="Profil">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+                        <circle cx="12" cy="7" r="4"/>
+                    </svg>
+                </button>
+            </nav>
+        </header>
+
+        <!-- Main Content -->
+        <main class="overview-main">
+            <!-- Left Column -->
+            <div class="left-column">
+                <h2 class="section-title">Overview</h2>
+
+                <!-- Gewichtsprozess Card -->
+                <div class="progress-card">
+                    <h3 class="card-title">Gewichtsprozess</h3>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="weight-progress-bar">
+                            <div class="progress-fill" data-progress="75" id="weight-progress-fill"></div>
+                            <div class="current-weight-marker" id="current-weight-marker">
+                                <span class="current-weight-value" id="current-weight-display">0 kg</span>
+                            </div>
+                        </div>
+                        <span class="progress-percentage" id="weight-percentage">75%</span>
+                    </div>
+                    <div class="weight-labels">
+                        <div class="weight-label-item">
+                            <span class="weight-label">Start</span>
+                            <span class="weight-value" id="start-weight">0 kg</span>
+                        </div>
+                        <div class="weight-label-item current">
+                            <span class="weight-label">Aktuell</span>
+                            <span class="weight-value" id="current-weight">0 kg</span>
+                        </div>
+                        <div class="weight-label-item">
+                            <span class="weight-label">Ziel</span>
+                            <span class="weight-value" id="goal-weight">0 kg</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Verbrannte Kalorien Card -->
+                <div class="progress-card">
+                    <h3 class="card-title">Verbrannte Kcal</h3>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar">
+                            <div class="progress-fill" data-progress="90"></div>
+                        </div>
+                        <span class="progress-percentage">90%</span>
+                    </div>
+                    <div class="calorie-labels">
+                        <span class="calorie-current" id="current-calories">0</span>
+                        <span class="calorie-separator">/</span>
+                        <span class="calorie-goal" id="goal-calories">2000</span>
+                        <span class="calorie-unit">kcal</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="right-column">
+                <!-- Kalender Card -->
+                <div class="calendar-card">
+                    <h3 class="card-title">Kalender</h3>
+                    <div class="calendar-container" id="calendar">
+                        <!-- Kalender wird dynamisch geladen -->
+                    </div>
+                </div>
+
+                <!-- Heutige Übungen Card -->
+                <div class="exercises-card">
+                    <h3 class="card-title">Heutige Übungen</h3>
+                    <div class="exercises-container" id="exercises-list">
+                        <!-- Übungen werden dynamisch geladen -->
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="overview-footer">
+            <p>© 2025 Bitschupfer</p>
+        </footer>
+    </div>
+    </div>
+
+    <!-- Streak Celebration Overlay -->
+    <div class="streak-celebration" id="streak-celebration">
+        <div class="celebration-content">
+            <div class="celebration-fire-burst">
+                <svg class="burst-fire" viewBox="0 0 120 120" fill="none">
+                    <path class="burst-flame" d="M60 10c3 7 7 12 12 18 5 6 8 12 8 18 0 11-9 20-20 20s-20-9-20-20c0-6 3-12 8-18 5-6 9-11 12-18z" fill="url(#burstGradient)"/>
+                    <defs>
+                        <linearGradient id="burstGradient" x1="60" y1="10" x2="60" y2="66">
+                            <stop offset="0%" stop-color="#FFD700"/>
+                            <stop offset="50%" stop-color="#FF8C00"/>
+                            <stop offset="100%" stop-color="#FF4500"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+            <div class="celebration-text">
+                <h2 class="celebration-title">Alle Übungen geschafft! 🎉</h2>
+                <div class="celebration-streak">
+                    <span class="streak-label">Streak erhöht auf</span>
+                    <span class="streak-number" id="celebration-streak-number">0</span>
+                    <span class="streak-unit">Tage</span>
+                </div>
+                <p class="celebration-message">Bleib dran und halte die Flamme am Leben!</p>
+            </div>
+            <button class="celebration-close" id="celebration-close">Weiter 🔥</button>
+        </div>
+        <canvas class="confetti-canvas" id="confetti-canvas"></canvas>
+    </div>
+
+    <!-- Profil Modal -->
+    <div class="profile-modal" id="profile-modal">
+        <div class="profile-modal-content">
+            <div class="profile-modal-header">
+                <h3>Profil</h3>
+                <button class="profile-close" id="profile-close">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="profile-modal-body">
+                <div class="profile-option" id="edit-profile">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 15c-3.9 0-7 3.1-7 7h14c0-3.9-3.1-7-7-7z"/>
+                        <circle cx="12" cy="7" r="4"/>
+                        <path d="M17 10l-2-2m0 0l-2-2m2 2l2 2m-2-2l-2 2"/>
+                    </svg>
+                    <span>Profil bearbeiten</span>
+                </div>
+                <div class="profile-option" id="settings">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="3"/>
+                        <path d="M12 1v6m0 6v6M5.64 5.64l4.24 4.24m6.36 6.36l4.24 4.24M1 12h6m6 0h6M5.64 18.36l4.24-4.24m6.36-6.36l4.24-4.24"/>
+                    </svg>
+                    <span>Einstellungen</span>
+                </div>
+                <div class="profile-divider"></div>
+                <div class="profile-option logout" id="logout-btn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/>
+                        <polyline points="16 17 21 12 16 7"/>
+                        <line x1="21" y1="12" x2="9" y2="12"/>
+                    </svg>
+                    <span>Abmelden</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="overview.js"></script>
+</body>
+</html>
